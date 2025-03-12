@@ -1,0 +1,8 @@
+#auth_form_page {
+    background: radial-gradient(circle, #FFFFFF, #999999);
+    font-family: "Lemon", serif;
+}
+
+#auth_form {
+    width: 32%;
+}
