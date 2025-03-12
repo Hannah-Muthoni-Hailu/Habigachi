@@ -5,5 +5,16 @@
     </head>
     <body>
         <h1>The ejs syntax works</h1>
+        <% if (habits.length != 0) { %>
+            <% for (let i=0; i < habits.length; i++) { %>
+                <form action="/update_habit" method="post">
+                    <p>Name: <%= habits[i].name %>, Color: <%= habits[i].color %>, Done: <%= habits[i].done %></p>
+                    <input type="text" name="habit" value="<%= habits[i].habit_id %>" hidden>
+                    <button type="submit" name="action" value="delete" >Delete</button>
+                    <button type="submit" name="action" value="done" >Done</button>
+                </form>
+            <% } %>
+        <% } %>
+        <a href="/newhabit">New Habit</a>
     </body>
 </html>
