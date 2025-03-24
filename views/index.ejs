@@ -1,20 +1,26 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="/styles/styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&family=Itim&family=Lemon&display=swap" rel="stylesheet">
         <title>Habigachi</title>
     </head>
     <body>
-        <h1>The ejs syntax works</h1>
-        <% if (habits.length != 0) { %>
-            <% for (let i=0; i < habits.length; i++) { %>
-                <form action="/update_habit" method="post">
-                    <p>Name: <%= habits[i].name %>, Color: <%= habits[i].color %>, Done: <%= habits[i].done %></p>
-                    <input type="text" name="habit" value="<%= habits[i].habit_id %>" hidden>
-                    <button type="submit" name="action" value="delete" >Delete</button>
-                    <button type="submit" name="action" value="done" >Done</button>
-                </form>
+        <section class="w-25 rounded-4 p-2" id="habit-section">
+            <a class="float-end" href="/newhabit">New Habit</a>
+            <% if (habits.length != 0) { %>
+                <% for (let i=0; i < habits.length; i++) { %>
+                    <form action="/update_habit" method="post">
+                        <p>Name: <%= habits[i].name %>, Color: <%= habits[i].color %>, Done: <%= habits[i].done %></p>
+                        <input type="text" name="habit" value="<%= habits[i].habit_id %>" hidden>
+                        <button type="submit" name="action" value="delete" >Delete</button>
+                        <button type="submit" name="action" value="done" >Done</button>
+                    </form>
+                <% } %>
             <% } %>
-        <% } %>
-        <a href="/newhabit">New Habit</a>
+        </section>
     </body>
 </html>
