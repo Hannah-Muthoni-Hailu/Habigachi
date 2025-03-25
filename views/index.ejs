@@ -9,17 +9,21 @@
         <title>Habigachi</title>
     </head>
     <body>
-        <section class="w-25 rounded-4 p-2" id="habit-section">
-            <a class="float-end" href="/newhabit"><img src="/images/plus.png" alt="Icon for adding a new habit" id="plus-icon"></a>
+        <section class="w-25 rounded-4" id="habit-section">
+            <a class="float-end m-2" href="/newhabit"><img src="/images/plus.png" alt="Icon for adding a new habit" id="plus-icon"></a>
             <% if (habits.length != 0) { %>
-                <% for (let i=0; i < habits.length; i++) { %>
-                    <form action="/update_habit" method="post">
-                        <p>Name: <%= habits[i].name %>, Color: <%= habits[i].color %>, Done: <%= habits[i].done %></p>
-                        <input type="text" name="habit" value="<%= habits[i].habit_id %>" hidden>
-                        <button type="submit" name="action" value="delete" >Delete</button>
-                        <button type="submit" name="action" value="done" >Done</button>
-                    </form>
-                <% } %>
+                <div class="mt-4 w-100">
+                    <% for (let i=0; i < habits.length; i++) { %>
+                        <form action="/update_habit" method="post" class="d-flex flex-row-reverse justify-content-center w-100">
+                            <div class="habit rounded-4 p-1 d-flex flex-column align-items-center w-75">
+                                <p class="fs-6"><%= habits[i].name %></p> <!--, Color: <%= habits[i].color %>, Done: <%= habits[i].done %>-->
+                                <input type="text" name="habit" value="<%= habits[i].habit_id %>" hidden>
+                                <button type="submit" name="action" value="delete">Delete</button>
+                            </div>
+                            <button type="submit" name="action" value="done" class="checkbox" ></button>
+                        </form>
+                    <% } %>
+                </div>
             <% } %>
         </section>
     </body>
