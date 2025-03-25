@@ -10,7 +10,7 @@
     </head>
     <body>
         <section class="w-25 rounded-4 p-2" id="habit-section">
-            <a class="float-end" href="/newhabit">New Habit</a>
+            <a class="float-end" href="/newhabit"><img src="/images/plus.png" alt="Icon for adding a new habit" id="plus-icon"></a>
             <% if (habits.length != 0) { %>
                 <% for (let i=0; i < habits.length; i++) { %>
                     <form action="/update_habit" method="post">
