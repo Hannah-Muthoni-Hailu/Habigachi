@@ -9,16 +9,20 @@
         <title>Habigachi</title>
     </head>
     <body>
-        <form action="/newhabit" method="post">
-            <input type="text" placeholder="Name of habit" name="name" required>
-            <select name="color">
+        <form action="/newhabit" method="post" class="bg-body-secondary p-4 mt-10 border rounded-4 position-absolute top-50 start-50 translate-middle">
+            <div class="mb-3">
+                <label for="habit" class="form-label">Name your habit</label>
+                <input type="text" class="form-control" id="habit" name="name" placeholder="Habit Name" required>
+            </div>
+            <label for="selection" class="form-label">Pick a color</label>
+            <select id="selection" class="form-select" name="color">
                 <option value="red">Red</option>
                 <option value="orange">Orange</option>
                 <option value="yellow">Yellow</option>
                 <option value="green">Green</option>
                 <option value="blue">Blue</option>
             </select>
-            <button type="submit">Add</button>
+            <button type="submit" class="btn btn-secondary mt-3" style="margin-left: 40%;">Add</button>
         </form>
     </body>
 </html>

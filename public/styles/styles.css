@@ -1,17 +1,10 @@
 body {
     font-family: "Lemon", serif;
-}
-
-#auth_form_page {
     background: radial-gradient(circle, #FFFFFF, #999999);
 }
 
 #auth_form {
     width: 32%;
-}
-
-#home-body {
-    background: radial-gradient(ellipse, #FFFFFF, #999999);
 }
 
 #habit-section{
