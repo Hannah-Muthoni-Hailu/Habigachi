@@ -69,14 +69,15 @@ router.get("/", (req, res) => {
         db.all("SELECT habit_id, name, color, done FROM habits WHERE user = ? AND done = FALSE", [current_user], (err, habit) => {
             if (err) return res.status(400).send(err.message);
             if (habit) {
+                console.log(total);
                 res.render("index", { habits : habit, totalDone : total });
             }
             else {
-                res.render("index", { habits : [], totalDone : 0 });
+                res.render("index", { habits : [], totalDone : 100 });
             }
         });
     } else {
-        res.render("index", { habits : [], totalDone : 0 });
+        res.render("index", { habits : [], totalDone : 100 });
     }
 });
 
