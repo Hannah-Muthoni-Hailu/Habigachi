@@ -62,6 +62,7 @@ router.get("/", (req, res) => {
         db.all("SELECT SUM(num_completed), COUNT(*) FROM habits WHERE user = ?", [current_user], (err, num) => {
             if (err) return res.status(400).send(err.message);
             if (num) {
+                console.log(num[0]['SUM(num_completed)'], num[0]['COUNT(*)'])
                 number = 100 + (num[0]['SUM(num_completed)'] / (365 * num[0]['COUNT(*)']))
                 total = number.toFixed(2)
             }
@@ -69,7 +70,6 @@ router.get("/", (req, res) => {
         db.all("SELECT habit_id, name, color, done FROM habits WHERE user = ? AND done = FALSE", [current_user], (err, habit) => {
             if (err) return res.status(400).send(err.message);
             if (habit) {
-                console.log(total);
                 res.render("index", { habits : habit, totalDone : total });
             }
             else {
