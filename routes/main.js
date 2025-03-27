@@ -58,17 +58,25 @@ db.get("SELECT today FROM date", (err, last_update) => {
 
 router.get("/", (req, res) => {
     if (current_user) {
+        let total;
+        db.all("SELECT SUM(num_completed), COUNT(*) FROM habits WHERE user = ?", [current_user], (err, num) => {
+            if (err) return res.status(400).send(err.message);
+            if (num) {
+                number = 100 + (num[0]['SUM(num_completed)'] / (365 * num[0]['COUNT(*)']))
+                total = number.toFixed(2)
+            }
+        })
         db.all("SELECT habit_id, name, color, done FROM habits WHERE user = ? AND done = FALSE", [current_user], (err, habit) => {
             if (err) return res.status(400).send(err.message);
             if (habit) {
-                res.render("index", { habits : habit });
+                res.render("index", { habits : habit, totalDone : total });
             }
             else {
-                res.render("index", { habits : [] });
+                res.render("index", { habits : [], totalDone : 0 });
             }
         });
     } else {
-        res.render("index", { habits : [] });
+        res.render("index", { habits : [], totalDone : 0 });
     }
 });
 
@@ -138,7 +146,7 @@ router.post("/update_habit", (req, res) => {
             if (err) return res.status(400).send(err.message);
         })
     } else {
-        db.run("UPDATE habits SET done = TRUE WHERE habit_id = ?", [habit], (err) => {
+        db.run("UPDATE habits SET done = TRUE, num_completed = num_completed + 1 WHERE habit_id = ?", [habit], (err) => {
             if (err) return res.status(400).send(err.message);
         })
     }
