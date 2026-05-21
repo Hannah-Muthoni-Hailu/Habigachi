@@ -49,10 +49,17 @@ app.post('/signup',
                 }
                 
             } catch (error) {
-                res.status(500).json({ error: error.message });
+                res.status(500).json({ error: [error.message] });
             }
         } else {
-            res.status(400).json({ errors: result.array() })
+            let error_list = [];
+            results_arr = result.array();
+
+            for (let i = 0; i < results_arr.length; i++) {
+                error_list.push(results_arr[i]["msg"])
+            }
+
+            res.status(400).json({ errors: error_list })
         };
 });
 
@@ -68,10 +75,17 @@ app.post('/login',
             if (existing_users.length === 1) {
                 res.status(200).json({ message: 'User successfully logged in!' });
             } else {
-                res.status(500).json({ error: 'Invalid email or password' });
+                res.status(500).json({ error: ['Invalid email or password'] });
             }
         } else {
-            res.status(500).json({ error: results.array() });
+            let error_list = [];
+            results_arr = results.array();
+
+            for (let i = 0; i < results_arr.length; i++) {
+                error_list.push(results_arr[i]["msg"])
+            }
+
+            res.status(400).json({ errors: error_list })
         }
     }
 )
