@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Form, Button, Alert, Spinner } from "react-bootstrap";
 
 export default function Signup() {
+    const navigate = useNavigate();
     const [isSignup, setIsSignup] = useState(true);
     const [formData, setFormData] = useState({
         'username': "",
@@ -23,7 +24,7 @@ export default function Signup() {
         setSpinning(true);
 
         try {
-            const res = await fetch("https://solid-space-garbanzo-wr957qw6qjrg39gxx-3000.app.github.dev/signup", {
+            const res = await fetch("http://localhost:3000/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -36,6 +37,10 @@ export default function Signup() {
             if (!res.ok) {
                 setErrors(response.errors)
             } else {
+                localStorage.setItem("email", response.email)
+                localStorage.setItem("complete", JSON.stringify(response.complete))
+                localStorage.setItem("incomplete", JSON.stringify(response.incomplete))
+                navigate("/dashboard")
                 console.log("Successful sign in");
                 setFormData({
                     'username': "",
@@ -56,7 +61,7 @@ export default function Signup() {
         setSpinning(true);
 
         try {
-            const res = await fetch("https://solid-space-garbanzo-wr957qw6qjrg39gxx-3000.app.github.dev/login", {
+            const res = await fetch("http://localhost:3000/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -69,7 +74,10 @@ export default function Signup() {
             if (!res.ok) {
                 setErrors(response.errors);
             } else {
-                console.log("Success");
+                localStorage.setItem("email", response.email)
+                localStorage.setItem("complete", JSON.stringify(response.complete))
+                localStorage.setItem("incomplete", JSON.stringify(response.incomplete))
+                navigate("/dashboard")
                 setFormData({
                     'username': "",
                     'email': "",
